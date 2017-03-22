@@ -1,0 +1,92 @@
+
+<!--Aqui se importan los elemntos Polymer-->
+
+<!--iron Elements-->
+<link rel="import"  href="polymer/iron-pages/iron-pages.html">
+<link rel="import"  href="polymer/iron-icons/iron-icons.html">
+<link rel="import"  href="polymer/iron-ajax/iron-ajax.html">
+
+<!--Paper Elements-->
+<link rel="import" href="polymer/paper-toggle-button/paper-toggle-button.html">
+<link rel="import"  href="polymer/paper-menu/paper-menu.html">
+<link rel="import"  href="polymer/paper-card/paper-card.html">
+<link rel="import"  href="polymer/paper-button/paper-button.html">
+<link rel="import"  href="polymer/paper-input/paper-input.html">
+<link rel="import"  href="polymer/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import"  href="polymer/paper-menu/paper-menu.html">
+<link rel="import"  href="polymer/paper-item/paper-item.html">
+<link rel="import"  href="polymer/paper-fab/paper-fab.html">
+<link rel="import"  href="polymer/paper-header-panel/paper-header-panel.html">
+<link rel="import"  href="polymer/paper-checkbox/paper-checkbox.html">
+<link rel="import"  href="polymer/paper-dialog/paper-dialog.html">
+<link rel="import"  href="polymer/paper-toast/paper-toast.html">
+
+<!---Aqui se configura el routing-->
+<script src="polymer/page/page.js"></script>
+<script>
+  window.addEventListener('WebComponentsReady', function() {
+    var app= document.querySelector('#app');
+    app.route = 'home';
+
+    // We use Page.js for routing. This is a Micro
+    // client-side router inspired by the Express router
+    // More info: https://visionmedia.github.io/page.js/
+    page('/home', function () {
+      app.route = 'home';
+    
+    });
+
+     page('/altaus', function () {
+      app.route = 'alta_us';
+    
+    });
+
+    page('/altaalu', function () {
+      app.route = 'alta_alum';
+   
+     });
+
+    page('/modi', function () {
+      app.route = 'modifi';
+     
+     });
+
+    page('/config', function () {
+      app.route = 'configuracion';
+     
+     });
+
+    page('/regisalum',function(){
+      app.route='regis_alum_ser';
+  
+    });
+
+    page('/consul_us',function(){
+     app.route='consulta_us';
+     
+    });
+
+    page('/liberacion',function(){
+      app.route='liberacion';
+    });
+
+    page('/cona',function(){
+     app.route='cons_al';
+     
+    });
+    
+     page('/almod',function(){
+     app.route='mod_al';
+     
+    });
+
+    // add #! before urls
+    page({
+      hashbang: true
+    });
+
+ 
+
+  });
+</script>
+

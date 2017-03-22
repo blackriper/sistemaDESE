@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <!--Encabezado donde van los iconos y se instancian con los estilos y elemntos Polymer-->
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="img/faviconupjr.png" type="image/png" />
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/formulario.css">
+    <link href="css/demo.css" rel="stylesheet">
+    <script src="polymer/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import"  href="polymer/paper-button/paper-button.html">
+    <link rel="import"  href="polymer/paper-dialog/paper-dialog.html">
+     <link rel="import"  href="polymer/paper-toast/paper-toast.html">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <title>Sistema DESE</title>
+  </head>
+   
+  <body style="overflow-y:hidden;">
+  <!--Scripts para funciones de javascript--> 
+    <script src="js/entrar.js"></script>
+    <script src="js/jquery-2.1.4.js"></script>
+    <script>
+    //reconocer enter para inicio de sesion
+    $('body').keypress(function(event){ 
+        if ( event.which == 13 ) {
+            event.preventDefault();
+            inicio_ajax();
+           }
+         });
+
+     function message(){
+      document.querySelector('paper-toast').show();
+     }
+
+    </script>
+
+  <!--nofificaciones-->
+  <paper-dialog id="vacios" modal class="kira">
+          <center><h2><b>Advertencia</b></h2></center>
+              <div class="n">
+                  <img src="img/error.png">
+              </div>
+                <article>No se puede introducir campos vacíos.</article>
+            <div class="buttons">
+                <paper-button dialog-confirm autofocus>Aceptar</paper-button>
+            </div>
+    </paper-dialog>
+
+   <paper-dialog id="noexiste" modal class="kira">
+         <center><h2><b>Error</b></h2></center>
+              <div class="n">
+                <img src="img/error.png">
+              </div>
+              <article>El usuario no existe.</article>
+        <div class="buttons">
+          <paper-button dialog-confirm autofocus>Aceptar</paper-button>
+        </div>
+    </paper-dialog>
+      
+    <paper-dialog id="incorrecto" modal class="kira">
+         <center><h2><b>Advertencia</b></h2></center>
+              <div class="l">
+                <img src="img/warning.png">
+              </div>
+              <article>La contraseña o el  usuario no son correctos </article>
+        <div class="buttons">
+            <paper-button dialog-confirm autofocus>Aceptar</paper-button>
+         </div>
+    </paper-dialog>
+     <paper-toast id="toast" duration="4500" text="Pagina en Construcción"></paper-toast
+  <!--Encabado principal--> 
+   <header class="stilo"> 
+    <img src="img/lobo.png" align="right"  height= "140px"><br>
+   	<img src="img/logo.png" align="left" width="180px"><br><br>
+    <div aling="center">
+   <h1><center><p class="tit1">Departamento de Estancias, Servicio Social y Estadías (DESE)</p></center></h1>
+    </div>
+   </header>
+ 
+
+    <br><br><br><br><br><br>
+<!--Formulario de logueo-->
+   <center>
+    <section class="use">
+       <form id="login">
+       <label class="for"> <img src="img/cuenta.png" align="middle" width="70px" height="70px"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <input type="text" id="user" placeholder="No. de docente"required="required"><br><br>
+       <label class="for"> <img src="img/llave.png" align="middle" width="70px" height="70px"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <input type="password" id="password" placeholder="********" required maxlength="8"><br><br><br>
+       
+       <paper-button id="logg" raised onclick="inicio_ajax()"class="bot">Iniciar Sesión</paper-button>
+      </form>
+    </section><br>
+     <a href="javascript:message()"  class="recupera">¿Olvidó su contraseña?</a>
+  </center>
+      <br><br><br><br><br><br><br>
+
+  </body>
+
+  </html>

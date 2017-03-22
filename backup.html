@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+
+	<title>Sistema DESE</title>
+  <!--Estilos externos-->
+	<link rel="shortcut icon" href="img/faviconupjr.png" type="image/png"/>
+  <link rel="stylesheet" href="css/estilos.css">
+  <link href="css/demo.css" rel="stylesheet">
+
+  <!--soporte polymer-->
+  <script src="polymer/webcomponentsjs/webcomponents-lite.min.js"></script>
+
+  <!--componentes polymer-->
+  <link rel="import" href="polymer/gold-email-input/gold-email-input.html">
+  <link rel="import" href="polymer/iron-flex-layout/iron-flex-layout.html">
+  <link rel="import" href="polymer/paper-card/paper-card.html">
+  <link rel="import" href="polymer/paper-button/paper-button.html">
+  <link rel="import" href="polymer/paper-input/paper-input.html">
+  <link rel="import" href="polymer/paper-dialog/paper-dialog.html">
+  <link rel="import" href="polymer/iron-form/iron-form.html">
+  <link rel="import" href="polymer/paper-styles/color.html">
+  <link rel="import" href="polymer/paper-toast/paper-toast.html">
+  <link rel="import" href="polymer/iron-icons/iron-icons.html">
+
+
+  <script src="js/jquery-2.1.4.js"></script>
+
+
+  <style is="custom-style">
+      /* CSS rules for your element */
+     body{
+        overflow-y:hidden!important; 
+      }
+     .recu {
+        background: var(--paper-cyan-300);
+     }
+     .recu:hover {
+        background: var(--paper-orange-200);
+      }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-center-justified);
+      padding-top:20px;
+    }
+    .container1 {
+      @apply(--layout-horizontal);
+      @apply(--layout-center-justified);
+      }
+    .inputs{
+
+     --paper-input-container-focus-color:#FF6A00;
+      width: 250px;
+      text-align: center;
+    }
+    .carts{
+       text-align: center;
+      }  
+    
+   </style>
+
+</head>
+<body>
+
+    <!--Encabado principal--> 
+   <header class="stilo"> 
+    <img src="img/lobo.png" align="right"  height= "140px"><br>
+   	<img src="img/logo.png" align="left" width="180px"><br><br>
+    <div aling="center">
+    <center><p class="tit1">Departamento de Estancias, Servicio Social y Estadías (DESE)</p></center>
+    </div>
+   </header>
+
+   <!--Contenido-->
+
+    <template is="dom-bind" id="dominio">
+          <div class="container">
+              <paper-card heading="Cambiar Contraseña" elevation="4" class="carts">
+               <form is="iron-form" id="solicitud_cambio" disable-native-validation-ui="true">
+                <div class="card-content">
+
+
+                   <paper-input label="N° de Usuario" class="inputs" char-counter maxlength="4" auto-validate pattern="[0-9]*"error-message="Solo Números"  id="matricula" required></paper-input>
+
+                    <paper-input char-counter label="Contraseña" type="password" maxlength="8" auto-validate pattern=".{8}" error-message="La contraseña es max de 8 caracteres" required id="cont" class="inputs"></paper-input>
+
+                    <paper-input char-counter label="Repetir Contraseña" type="password" id="con2" maxlength="8" auto-validate pattern=".{8}" error-message="La contraseña es max de 8 caracteres" required class="inputs"></paper-input>
+                   
+                 </div>
+     
+                  <div class="card-actions">
+                      <div class="container1"><paper-button elevation="3" on-click="ironRules" class="recu"><iron-icon icon="icons:send"></iron-icon>Enviar</paper-button><div>
+                  </div>
+               </form>   
+              </paper-card>
+            </div>
+
+
+
+         <paper-toast id="toast1" duration="4500" text="Su solicitud ha sido mandada correctamente "></paper-toast>
+         
+         <paper-toast id="toast3" duration="4500" text="Su solicitud ha sido mandada correctamente "></paper-toast>
+
+          <paper-toast id="toast4" duration="4500" text="Las contraseñas no coinciden"></paper-toast>
+
+         <paper-toast id="toast2" duration="4500" text="El usuario no se encontro verifique su numero de usuario e intente nuevamente"></paper-toast>
+
+         <paper-toast id="toast" duration="4500" text="No se pueden introducir campos vacios"></paper-toast>
+
+
+    </template>
+    <script src="js/recuperacion.js"></script>
+    <script>
+
+      var dom=document.querySelector('#dominio');
+
+        dom.ironRules=function(){
+         if (document.getElementById('solicitud_cambio').validate()==true) {
+           
+             if (this.$.cont.value==this.$.con2.value) {
+                var obser=[this.$.toast1,this.$.toast2,this.$.solicitud_cambio,this.$.toast3];
+                ajax(this.$.matricula,this.$.cont,obser);
+             }else{
+                this.$.toast4.show();
+                this.$.cont.value="";
+                this.$.con2.value="";
+
+                }
+          }
+          if (document.getElementById('solicitud_cambio').validate()==false) {
+            this.$.toast.show();
+          }  
+    }
+
+        
+ function ajax(id,cn,res){
+
+
+  ajax= Ajax_conection();
+  ajax.open("POST","solicitud.php",true);
+  ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+  ajax.send("&matricula="+id.value+'&cont='+cn.value);    
+    ajax.onreadystatechange=function(){
+       if (ajax.readyState==4) {
+          if (ajax.status==200) {
+              var bol=ajax.responseText;
+              if (bol=="correcto") {res[0].show();}
+              if (bol=="incorrecto"){res[3].show();}
+              if (bol=="noexiste") {res[1].show();}
+              res[2].reset();
+           }
+        }
+       } 
+ 
+ }
+
+
+     </script>
+	
+   </body>
+</html>
